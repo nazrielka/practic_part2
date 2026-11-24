@@ -60,10 +60,9 @@ class Design(models.Model):
             elif self.comment:
                 self.submission.status = 'w'
                 self.submission.save()
-
-
+        super().save(*args, **kwargs)
 
 @receiver(post_save, sender=User)
-def create_or_update_user_client(instance, created):
+def create_or_update_user_client(sender, instance, created, **kwargs):
     if created:
         Client.objects.create(user=instance)

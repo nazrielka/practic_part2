@@ -7,7 +7,7 @@ admin.site.register(Category)
 
 class DesignInline(admin.TabularInline):
     model = Design
-    extra = 0
+    extra = 1
 
 
 class DesignAdminForm(forms.ModelForm):

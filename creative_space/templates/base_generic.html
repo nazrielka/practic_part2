@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    {% block title %}<title>Студия Design.pro</title>{% endblock %}
+  </head>
+
+  <body>
+    <div class="container">
+      <nav>
+        {% block sidebar %}
+          <menu class="sidebar-nav">
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <li><a href="{% url 'login' %}">Войти</a></li>
+
+            <li>Пользователь: {{user.get_username}}</li>
+            <li><a href="#">Профиль</a></li>
+            <li><a href="#">Мои заявки</a></li>
+            <li><a href="#">Оставить заявку</a></li>
+            <li>
+              <form id="logout-form" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-link">Выйти</button>
+              </form>
+            </li>
+
+            <li class="title-nav">Администратор</li>
+            <li><a href="#"></a>Все заявки</li>
+            <li><a href="#">Все категории</a></li>
+          </menu>
+        {% endblock %}
+      </nav>
+
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

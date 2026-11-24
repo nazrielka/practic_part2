@@ -1,0 +1,243 @@
+:root {
+    --bg-color: #f5f3ef;
+    --sidebar-color: #252724;
+    --sidebar-hover: #383b36;
+    --primary-color: #b47b5c;
+    --primary-hover: #996448;
+    --text-color: #292b28;
+    --muted-color: #85857e;
+    --card-color: #ffffff;
+    --border-color: #e8e5df;
+
+    --sidebar-width: 260px;
+
+    --radius: 12px;
+    --transition: 0.25s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    min-height: 100vh;
+    padding-left: var(--sidebar-width);
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: var(--sidebar-color);
+    padding: 35px 22px;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.sidebar-nav {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-nav li {
+    color: #d4d3ce;
+    font-size: 14px;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 11px 15px;
+    color: #d4d3ce;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.sidebar-nav a:hover {
+    background-color: var(--sidebar-hover);
+    color: #ffffff;
+}
+
+/* Пользователь */
+
+.sidebar-nav li:nth-child(3) {
+    margin-top: 15px;
+    padding: 12px 15px;
+    color: #aaa99f;
+    font-size: 13px;
+    border-top: 1px solid #41433e;
+}
+
+/* Кнопка выхода */
+
+#logout-form {
+    padding: 0 15px;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: #d4d3ce;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-link:hover {
+    color: var(--primary-color);
+}
+
+/* Заголовок раздела администратора */
+
+.sidebar-nav .title-nav {
+    margin-top: 35px;
+    padding: 12px 15px 8px;
+    color: var(--primary-color);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-top: 1px solid #41433e;
+}
+
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 55px 65px;
+}
+
+.hero {
+    position: relative;
+    padding: 75px 65px;
+    margin-bottom: 55px;
+    background-color: #e9e3d9;
+    border-radius: 18px;
+
+    overflow: hidden;
+}
+
+.hero h1 {
+    max-width: 750px;
+    font-size: 46px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+    color: #292b28;
+}
+
+.logo {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.hero p {
+    max-width: 550px;
+    margin-top: 22px;
+    color: #74746d;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.submissions_list h2 {
+    margin-bottom: 12px;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.submissions_list > p {
+    margin-bottom: 28px;
+    color: var(--muted-color);
+    font-size: 14px;
+}
+
+/* Контейнер карточек */
+
+.submissions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.submission {
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.submission:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(40, 38, 32, 0.08);
+}
+
+.submission h3 {
+    padding: 22px 23px 15px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.status {
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.design-photo {
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background-color: #e9e5de;
+}
+
+.design-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.submission:hover .design-photo img {
+    transform: scale(1.04);
+}
+
+.submission-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 23px 10px;
+}
+
+.submission-info p {
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.submission-info time {
+    color: var(--muted-color);
+    font-size: 12px;
+}
+
+.submission > p {
+    padding: 5px 23px 23px;
+    color: #777770;
+    font-size: 14px;
+    line-height: 1.7;
+}

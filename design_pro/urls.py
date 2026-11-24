@@ -1,5 +1,5 @@
 """
-URL configuration for disign_pro project.
+URL configuration for design_pro project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/6.1/topics/http/urls/
@@ -25,5 +25,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('superadmin/', admin.site.urls),
     path('creative_space/', include('creative_space.urls') ),
-    path('', RedirectView.as_view(url='/creative_space/', permanent=True)),
+    path('', RedirectView.as_view(url='/creative_space/', permanent=True) ),
+    path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
