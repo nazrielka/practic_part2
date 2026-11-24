@@ -2,21 +2,10 @@
 
 {% block content %}
 
-  {% if form.errors %}
-    <p>Ваш логин и пароль не были найдены, либо не существуют. Проверьте, правильно ли введен логин и пароль.</p>
-  {% endif %}
-
-  {% if next %}
-    {% if user.is_authenticated %}
-      <p>У вашей учетной записи нет доступа к этой странице. Чтобы продолжить, пожалуйста, войдите в систему, используя учетную запись с доступом.</p>
-    {% else %}
-      <p>Пожалуйста, авторизуйтесь для просмотра страницы.</p>
-    {% endif %}
-  {% endif %}
-
   <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
     <table>
+      <legend>Авторизация</legend>
       <tr>
         <td>{{ form.username.label_tag }}</td>
         <td>{{ form.username }}</td>
@@ -25,8 +14,14 @@
         <td>{{ form.password.label_tag }}</td>
         <td>{{ form.password }}</td>
       </tr>
+      <tr>
+        {% if form.errors %}
+          <td>Ваш логин и пароль не были найдены, либо не существуют. Проверьте, правильно ли введен логин и пароль.</td>
+        {% endif %}
+      </tr>
     </table>
-    <input type="submit" value="login">
+    <input type="submit" value="Войти">
     <input type="hidden" name="next" value="{{ next }}">
   </form>
+<a href="{% url 'register' %}" class="alternative-link">Регистрация</a>
 {% endblock %}

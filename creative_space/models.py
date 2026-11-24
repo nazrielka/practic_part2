@@ -2,10 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.text import Truncator
+from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
+
+
 
 class Client(models.Model):
     user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE)
     patronymic = models.CharField("Отчество", max_length=100, blank=True)
+    is_agree_to_processing_data = models.BooleanField("Согласие на обработку данных", default=False)
 
     class Meta:
         ordering = ('user__last_name',)
@@ -27,11 +33,28 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+def validate_image_size(image):
+    max_size_mb = 2
+    if image.size > max_size_mb * 1024 * 1024:
+        raise ValidationError(
+            f'Размер изображения не должен превышать {max_size_mb}Мб. Пожалуйста, измените изображение.'
+        )
+
 class Submission(models.Model):
     client = models.ForeignKey(Client, verbose_name="Клиент", on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, verbose_name="Категория",on_delete=models.CASCADE, help_text="Категория заявки (что требуется сделать по заявке)")
     description = models.TextField("Описание", help_text="Предпочтения и пожелания к дизайну.")
-    floor_plan = models.ImageField("План помещения", upload_to='floor_plan/%Y/%m', help_text="План помещения.")
+    floor_plan=models.ImageField(
+        "План помещения",
+        upload_to='floor_plan/%Y/%m',
+        help_text="План помещения.",
+        validators=[
+            FileExtensionValidator(
+                allowed_extensions=['png', 'jpg', 'jpeg', 'bmp'],
+                message="Допустимые форматы: JPG, JPEG, PNG, BMP.",),
+            validate_image_size,],
+        )
+
     created_at = models.DateTimeField(auto_now_add=True, help_text="Дата создания заявки")
     WORK_STATUS = [
         ('n', 'Новый'),
@@ -41,7 +64,11 @@ class Submission(models.Model):
     status = models.CharField("Статус заявки", max_length=1, choices=WORK_STATUS, default='n')
 
     def __str__(self):
-        return f"{self.category.name}, {self.description} - {self.client.user.last_name} {self.client.user.first_name} - {self.get_status_display()}"
+        short_description = Truncator(self.description).chars(30)
+        if self.client and self.client.user:
+            return f"{self.category.name}, {short_description} - от {self.client.user.last_name} {self.client.user.first_name} - {self.get_status_display()}"
+        else:
+            return f"{self.category.name}, {self.description} - {self.get_status_display()}"
 
 class Design(models.Model):
     designer = models.ForeignKey(Client, verbose_name="Дизайнер",on_delete=models.SET_NULL, null=True)

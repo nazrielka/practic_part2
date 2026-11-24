@@ -1,0 +1,45 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <form method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
+    <table>
+      <legend>Регистрация</legend>
+      <tr>
+        <td>{{ form.first_name.label_tag }}</td>
+        <td>{{ form.first_name }}{{ form.first_name.errors }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.last_name.label_tag }}</td>
+        <td>{{ form.last_name }}{{ form.last_name.errors }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.patronymic.label_tag }}</td>
+        <td>{{ form.patronymic }}{{ form.patronymic.errors }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}{{ form.username.errors }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.email.label_tag }}</td>
+        <td>{{ form.email }}{{ form.email.errors }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password1.label_tag }}</td>
+        <td>{{ form.password1 }}{{ form.password1.errors }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password2.label_tag }}</td>
+        <td>{{ form.password2 }}{{ form.password2.errors }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.is_agree_to_processing_data.label_tag }}</td>
+        <td>{{ form.is_agree_to_processing_data }}{{ form.is_agree_to_processing_data.errors }}</td>
+      </tr>
+    </table>
+    <input type="submit" value="Зарегистрироваться">
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+<a href="{% url 'login' %}" class="alternative-link">Вход</a>
+{% endblock %}
