@@ -14,8 +14,7 @@
         {% block sidebar %}
           <menu class="sidebar-nav">
             <li><a href="{% url 'index' %}">Главная</a></li>
-            <li><a href="{% url 'login' %}">Войти</a></li>
-
+          {% if user.is_authenticated %}
             <li>Пользователь: {{user.get_username}}</li>
             <li><a href="#">Профиль</a></li>
             <li><a href="#">Мои заявки</a></li>
@@ -26,10 +25,14 @@
                 <button type="submit" class="btn-link">Выйти</button>
               </form>
             </li>
-
+            {% if user.is_staff %}
             <li class="title-nav">Администратор</li>
             <li><a href="#">Все заявки</a></li>
             <li><a href="#">Все категории</a></li>
+            {% endif %}
+          {% else %}
+            <li><a href="{% url 'login' %}">Войти</a></li>
+          {% endif %}
           </menu>
         {% endblock %}
       </nav>

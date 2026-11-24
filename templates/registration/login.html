@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+  {% if form.errors %}
+    <p>Ваш логин и пароль не были найдены, либо не существуют. Проверьте, правильно ли введен логин и пароль.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>У вашей учетной записи нет доступа к этой странице. Чтобы продолжить, пожалуйста, войдите в систему, используя учетную запись с доступом.</p>
+    {% else %}
+      <p>Пожалуйста, авторизуйтесь для просмотра страницы.</p>
+    {% endif %}
+  {% endif %}
+
+  <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+    <input type="submit" value="login">
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+{% endblock %}

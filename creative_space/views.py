@@ -9,7 +9,7 @@ def index (request):
     return render(request, 'creative_space/index.html', {'num_submissions': num_submissions, 'submission_ready_list': submission_ready_list,} )
 
 def profile(request):
-    pass
+    return render(request, 'creative_space/profile.html')
 
 def my_submissions(request):
     pass
