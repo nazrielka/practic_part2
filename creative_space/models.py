@@ -60,6 +60,9 @@ class Design(models.Model):
             elif self.comment:
                 self.submission.status = 'w'
                 self.submission.save()
+            else:
+                self.submission.status = 'n'
+                self.submission.save()
         super().save(*args, **kwargs)
 
 @receiver(post_save, sender=User)
