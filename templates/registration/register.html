@@ -3,7 +3,7 @@
 {% block content %}
   <form method="POST" action="{% url 'register' %}">
     {% csrf_token %}
-    <table>
+    <table class="register">
       <legend>Регистрация</legend>
       <tr>
         <td>{{ form.first_name.label_tag }}</td>

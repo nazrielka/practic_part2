@@ -3,15 +3,16 @@
 {% block title %}<title>Главная Design.pro</title>{% endblock %}
 
 {% block content %}
-    <main>
-        <section class="hero">
-            <h1>Дизайн интерьера от <span class="logo">Design.pro!</span></h1>
-            <p>Дизайн для ваших домов и квартир по планировке помещения в короткие сроки.</p>
-        </section>
-        <section class="submissions_list">
-            <h2>Выполненные заявки</h2>
-            <p>Количество заявок со статусом "В работе": {{num_submissions}}</p>
-            <div class="submissions">
+    <section class="hero">
+        <h1>Дизайн интерьера от <span class="logo">Design.pro!</span></h1>
+        <p>Дизайн для ваших домов и квартир по планировке помещения в короткие сроки.</p>
+    </section>
+    <section class="submissions_list">
+        <h2>Выполненные заявки</h2>
+        <p>Количество заявок со статусом "В работе": {{num_submissions}}</p>
+        <div class="submissions">
+            {% if submission_ready_list %}
+
                 {% for submission in submission_ready_list %}
                     <div class="submission">
                         <h3>Заявка #{{submission.id}} - <span class="status">{{submission.get_status_display}}</span></h3>
@@ -23,7 +24,10 @@
                         <p>Описание: {{submission.description}}</p>
                     </div>
                 {% endfor %}
-            </div>
-        </section>
-    </main>
+
+            {% else %}
+                <p>Дизайнов со статусом "Выполнено" не было.</p>
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}

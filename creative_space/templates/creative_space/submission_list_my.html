@@ -1,0 +1,30 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+    <h1>Мои заявки</h1>
+            <div class="filter-buttons">
+                <a href="{% url 'my_submissions' %}" class="filter-btn {% if not current_status %}active{% endif %}">Все</a>
+                <a href="?status=n" class="filter-btn {% if current_status == 'n' %}active{% endif %}">Новые</a>
+                <a href="?status=w" class="filter-btn {% if current_status == 'w' %}active{% endif %}">Принято в работу</a>
+                <a href="?status=r" class="filter-btn {% if current_status == 'r' %}active{% endif %}">Выполнено</a>
+            </div>
+    <div class="submissions">
+        {% if submission_list %}
+            {% for submission in submission_list %}
+                <div class="submission">
+                    <h3>Заявка #{{submission.id}} - <span class="status">{{submission.get_status_display}}</span></h3>
+                    <div class="submission-info">
+                        <p>{{submission.category}}</p>
+                        <time>{{submission.created_at}}</time>
+                    </div>
+                    <p>Описание: {{submission.description}}</p>
+                </div>
+            {% endfor %}
+
+        {% else %}
+            <p>У вас пока еще нет заявок.</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

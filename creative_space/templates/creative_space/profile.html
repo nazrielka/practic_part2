@@ -4,4 +4,29 @@
 
 {% block content %}
     <h1>Личный кабинет</h1>
+    <section>
+        <h2>Ваши последние заявки:</h2>
+        <div class="submissions">
+            {% if submission_list %}
+                {% for submission in submission_list %}
+                    <div class="submission">
+                        <h3>Заявка #{{submission.id}} - <span class="status">{{submission.get_status_display}}</span></h3>
+                        <div class="submission-info">
+                            <p>{{submission.category}}</p>
+                            <time>{{submission.created_at}}</time>
+                        </div>
+                        <p>Описание: {{submission.description}}</p>
+                    </div>
+                {% endfor %}
+            <div class="actions">
+                <a href="{% url 'my_submissions' %}">Посмотреть все заявки</a>
+                <a href="{% url 'my_submissions' %}">Оставить заявку</a>
+            </div>
+
+            {% else %}
+                <p>У вас пока еще нет заявок.</p>
+                <a href="{% url 'my_submissions' %}">Оставить заявку</a>
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}
