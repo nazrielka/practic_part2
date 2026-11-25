@@ -26,6 +26,9 @@
         </div>
         <h3>Описание заявки</h3>
         <p>{{ submission.description }}</p>
+        <h3>План помещения:</h3>
+        <div class="floor_plan"><img src="{{submission.floor_plan.url}}" alt="План помещения"></div>
+
         {% if submission.status == 'w' %}
             <h3>Комментарий</h3>
             <p>{{ submission.design.comment }}</p>
@@ -36,12 +39,12 @@
         {% endif %}
 
         {% if user.is_staff or submission.client.user == user and submission.status == 'n' %}
-            <a href="#" class="btn-delete">Удалить заявку</a>
+            <a href="{% url 'delete_submission' submission.id %}" class="btn-delete">Удалить заявку</a>
         {% endif %}
         {% if submission.client.user == user and submission.status == 'n' %}
-            <a href="#" class="btn-update">Обновить заявку</a>
+            <a href="{% url 'update_submission' submission.id %}" class="btn-update">Обновить заявку</a>
         {% endif %}
-
     </section>
+    <a href="{% url 'my_submissions' %}" class="alternative-link">Вернуться к заявкам</a>
 
 {% endblock %}

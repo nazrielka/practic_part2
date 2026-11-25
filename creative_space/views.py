@@ -1,3 +1,5 @@
+from django.urls import reverse_lazy
+
 from .forms import ClientCreationForm
 from django.shortcuts import render, redirect
 from creative_space.models import Submission
@@ -21,7 +23,7 @@ class SubmissionListViewMyProfile(LoginRequiredMixin, generic.ListView):
 class SubmissionListViewMy(LoginRequiredMixin, generic.ListView):
     model = Submission
     template_name = 'creative_space/submission_list_my.html'
-    paginate_by = 4
+    paginate_by = 8
 
     def get_queryset(self):
         queryset = (Submission.objects.filter(client__user=self.request.user)).order_by('-created_at')
@@ -39,20 +41,25 @@ class SubmissionDetailView(generic.DetailView):
     model = Submission
     template_name = 'creative_space/submission_detail.html'
 
-def profile(request):
-    return render(request, 'creative_space/profile.html')
+class SubmissionCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Submission
+    fields = ['category', 'description', 'floor_plan']
+    permission_required = 'creative_space.add_submission'
+    success_url = reverse_lazy('my_submissions')
 
-def submission_create(request):
-    pass
+    def form_valid(self, form):
+        form.instance.client = self.request.user.client
+        return super().form_valid(form)
 
-def submission_delete(request):
-    pass
+class SubmissionUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Submission
+    fields = ['category', 'description', 'floor_plan']
+    permission_required = 'creative_space.change_submission'
 
-def book_details(request):
-    pass
-
-def submission_detail(request):
-    pass
+class SubmissionDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Submission
+    success_url = reverse_lazy('my_submissions')
+    permission_required = 'creative_space.delete_submission'
 
 def register(request):
     if request.method == 'POST':

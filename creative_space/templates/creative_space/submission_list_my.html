@@ -22,11 +22,11 @@
                     <a href="{{ submission.get_absolute_url }}">Открыть заявку</a>
                 </div>
             {% endfor %}
-            <a href="{% url 'my_submissions' %}">Оставить заявку</a>
+            <a href="{% url 'create_submission' %}">Оставить заявку</a>
         {% else %}
             <div class="actions">
                <p>У вас пока еще нет заявок.</p>
-                <a href="{% url 'my_submissions' %}">Оставить заявку</a>
+                <a href="{% url 'create_submission' %}">Оставить заявку</a>
             </div>
         {% endif %}
     </div>

@@ -717,3 +717,126 @@ nav menu a:hover {
     color: #ffffff;
 }
 
+.submissions > a {
+    grid-column: 1 / -1;
+    height: fit-content;
+    margin-top: 10px;
+}
+
+/* Оформление форм с выводом через {{ form }} (Создание и редактирование заявки) */
+
+.container form:not(#logout-form) > div {
+    margin-top: 22px;
+}
+
+.container form:not(#logout-form) > div label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.container form:not(#logout-form) .helptext {
+    margin-bottom: 8px;
+    color: var(--muted-color);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Выпадающий список (Категория) и текстовое поле (Описание) */
+.container form:not(#logout-form) select,
+.container form:not(#logout-form) textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background-color: #faf9f7;
+    border: 1px solid #dedbd4;
+    border-radius: 8px;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: var(--transition);
+}
+
+.container form:not(#logout-form) select {
+    height: 46px;
+    padding: 0 14px;
+    cursor: pointer;
+}
+
+.container form:not(#logout-form) textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.container form:not(#logout-form) select:focus,
+.container form:not(#logout-form) textarea:focus {
+    background-color: #ffffff;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(180, 123, 92, 0.12);
+}
+
+/* Поле загрузки файла (План помещения) */
+.container form:not(#logout-form) input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: #faf9f7;
+    border: 1px dashed #d0ccc4;
+    border-radius: 8px;
+    color: var(--muted-color);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.container form:not(#logout-form) input[type="file"]:hover {
+    border-color: var(--primary-color);
+    background-color: #ffffff;
+}
+
+/* Стилизация встроенной кнопки «Выберите файл» */
+.container form:not(#logout-form) input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 7px 14px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.container form:not(#logout-form) input[type="file"]::file-selector-button:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+}
+
+/* Ошибки валидации внутри {{ form }} */
+.container form:not(#logout-form) .errorlist {
+    margin-bottom: 6px;
+}
+
+.container form:not(#logout-form) .errorlist li {
+    color: #a90202;
+    font-size: 0.90rem;
+}
+
+/* План помещения на странице детального просмотра */
+
+.floor_plan > img {
+    display: block;
+    width: 100%;
+    max-height: 520px;
+    margin-top: 14px;
+    object-fit: contain;
+    background-color: #e9e5de;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+}

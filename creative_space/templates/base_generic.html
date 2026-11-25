@@ -19,7 +19,7 @@
               <li>Пользователь: {{user.get_username}}</li>
               <li><a href="{% url 'profile' %}">Личный кабинет</a></li>
               <li><a href="{% url 'my_submissions' %}">Мои заявки</a></li>
-              <li><a href="#">Оставить заявку</a></li>
+              <li><a href="{% url 'create_submission' %}">Оставить заявку</a></li>
               <li>
                 <form id="logout-form" method="post" action="{% url 'logout' %}">
                   {% csrf_token %}
