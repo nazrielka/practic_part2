@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
 from django.utils.text import Truncator
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
@@ -69,6 +70,9 @@ class Submission(models.Model):
             return f"{self.category.name}, {short_description} - от {self.client.user.last_name} {self.client.user.first_name} - {self.get_status_display()}"
         else:
             return f"{self.category.name}, {self.description} - {self.get_status_display()}"
+
+    def get_absolute_url(self):
+        return reverse('submission-detail', args=[str(self.id)])
 
 class Design(models.Model):
     designer = models.ForeignKey(Client, verbose_name="Дизайнер",on_delete=models.SET_NULL, null=True)

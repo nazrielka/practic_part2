@@ -16,6 +16,7 @@
                             <time>{{submission.created_at}}</time>
                         </div>
                         <p>Описание: {{submission.description}}</p>
+                        <a href="{{ submission.get_absolute_url }}">Открыть заявку</a>
                     </div>
                 {% endfor %}
             <div class="actions">
@@ -24,8 +25,10 @@
             </div>
 
             {% else %}
-                <p>У вас пока еще нет заявок.</p>
-                <a href="{% url 'my_submissions' %}">Оставить заявку</a>
+                <div class="actions">
+                    <p>У вас пока еще нет заявок.</p>
+                    <a href="{% url 'my_submissions' %}">Оставить заявку</a>
+                </div>
             {% endif %}
         </div>
     </section>

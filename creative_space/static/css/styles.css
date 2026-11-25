@@ -242,6 +242,32 @@ main {
     font-size: 14px;
     line-height: 1.7;
 }
+.submission > a {
+    display: inline-block;
+    width: fit-content;
+    margin: auto 23px 23px;
+    padding: 9px 18px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.submission > a:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(180, 123, 92, 0.22);
+}
+
+.submission > a:active {
+    transform: scale(0.97);
+}
+
 
 /*АВТОРИЗАЦИЯ И РЕГИСТРАЦИЯ */
 
@@ -554,3 +580,140 @@ main > section > h2 {
 .submissions > a:active {
     transform: scale(0.98);
 }
+
+/* Детальная страница заявки */
+
+.submission-detail {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 45px 50px;
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(40, 38, 32, 0.06);
+}
+
+.submission-detail h1 {
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.6px;
+    color: var(--text-color);
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.submission-detail h1 .status {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.submission-detail .submission-info {
+    padding: 18px 0 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.submission-detail .submission-info p {
+    font-size: 14px;
+}
+
+.submission-detail .submission-info time {
+    font-size: 13px;
+}
+
+.submission-detail h3 {
+    margin: 26px 0 10px;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.submission-detail > p {
+    color: #5e5e58;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+.submission-detail .design-photo {
+    height: auto;
+    max-height: 520px;
+    margin-top: 14px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+}
+
+.submission-detail .design-photo img {
+    max-height: 520px;
+    object-fit: contain;
+}
+
+/* Кнопки управления заявкой */
+
+.submission-detail .btn-delete,
+.submission-detail .btn-update {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.submission-detail .btn-update {
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    color: #ffffff;
+}
+
+.submission-detail .btn-update:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    box-shadow: 0 5px 15px rgba(180, 123, 92, 0.25);
+}
+
+.submission-detail .btn-delete {
+    margin-right: 12px;
+    background-color: #fff8f8;
+    border: 1px solid #f0c9c9;
+    color: #a90202;
+}
+
+.submission-detail .btn-delete:hover {
+    background-color: #a90202;
+    border-color: #a90202;
+    color: #ffffff;
+    box-shadow: 0 5px 15px rgba(169, 2, 2, 0.2);
+}
+
+.submission-detail .btn-delete:active,
+.submission-detail .btn-update:active {
+    transform: scale(0.98);
+}
+
+/* Дополнительное меню в боковой панели */
+
+nav menu {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #41433e;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+nav menu a {
+    display: block;
+    padding: 11px 15px;
+    color: #d4d3ce;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+nav menu a:hover {
+    background-color: var(--sidebar-hover);
+    color: #ffffff;
+}
+

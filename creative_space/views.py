@@ -35,6 +35,10 @@ class SubmissionListViewMy(LoginRequiredMixin, generic.ListView):
         context['current_status'] = self.request.GET.get('status', '')
         return context
 
+class SubmissionDetailView(generic.DetailView):
+    model = Submission
+    template_name = 'creative_space/submission_detail.html'
+
 def profile(request):
     return render(request, 'creative_space/profile.html')
 

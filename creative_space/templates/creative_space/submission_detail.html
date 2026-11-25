@@ -1,0 +1,47 @@
+{% extends 'base_generic.html' %}
+
+{% block sidebar %}
+    {{ block.super }}
+
+
+    {% if perms.creative_space.change_submission or perms.creative_space.delete_submission %}
+    <menu>
+        {% if perms.creative_space.change_submission %}
+            <li><a href="#">Обновить заявку</a></li>
+        {% endif %}
+        {% if perms.creative_space.delete_submission %}
+            <li><a href="#">Удалить заявку</a></li>
+        {% endif %}
+    </menu>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <section class="submission-detail">
+        <h1>Заявка #{{submission.id}} - <span class="status">{{submission.get_status_display}}</span></h1>
+        <div class="submission-info">
+            <p>{{submission.category}}</p>
+            <time>{{submission.created_at}}</time>
+        </div>
+        <h3>Описание заявки</h3>
+        <p>{{ submission.description }}</p>
+        {% if submission.status == 'w' %}
+            <h3>Комментарий</h3>
+            <p>{{ submission.design.comment }}</p>
+        {% endif %}
+        {% if submission.status == 'r' %}
+            <h3>Готовый дизайн</h3>
+            <div class="design-photo"><img src="{{submission.design.design_photo.url}}" alt="Готовая работа"></div>
+        {% endif %}
+
+        {% if user.is_staff or submission.client.user == user and submission.status == 'n' %}
+            <a href="#" class="btn-delete">Удалить заявку</a>
+        {% endif %}
+        {% if submission.client.user == user and submission.status == 'n' %}
+            <a href="#" class="btn-update">Обновить заявку</a>
+        {% endif %}
+
+    </section>
+
+{% endblock %}
