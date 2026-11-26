@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+    <h1>Все категории</h1>
+    <section class="categories">
+        {% for category in category_list %}
+            <div class="category">
+                <h4>Название: {{category.name}}</h4>
+                <a href="{% url 'delete_category' category.id %}" class="btn-delete">Удалить</a>
+            </div>
+        {% endfor %}
+        <a href="{% url 'create_category' %}" class="btn-update">Добавить</a>
+    </section>
+
+{% endblock %}

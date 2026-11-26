@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 
 from .forms import ClientCreationForm, DesignCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
-from creative_space.models import Submission, Design
+from creative_space.models import Submission, Design, Category
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views import generic, View
@@ -15,10 +15,9 @@ def index (request):
 class SubmissionListViewMyProfile(LoginRequiredMixin, generic.ListView):
     model = Submission
     template_name = 'creative_space/profile.html'
-    paginate_by = 4
 
     def get_queryset(self):
-        return (Submission.objects.filter(client__user=self.request.user)).order_by('-created_at')
+        return (Submission.objects.filter(client__user=self.request.user)).order_by('-created_at')[:4]
 
 class SubmissionListViewAll(LoginRequiredMixin, generic.ListView):
     model = Submission
@@ -40,7 +39,7 @@ class SubmissionListViewAll(LoginRequiredMixin, generic.ListView):
 class SubmissionListViewMy(LoginRequiredMixin, generic.ListView):
     model = Submission
     template_name = 'creative_space/submission_list_my.html'
-    paginate_by = 8
+    paginate_by = 6
 
     def get_queryset(self):
         queryset = (Submission.objects.filter(client__user=self.request.user)).order_by('-created_at')
@@ -88,6 +87,28 @@ class DesignCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Crea
         form.instance.submission = get_object_or_404(Submission, pk=self.kwargs['pk'])
         form.instance.designer = self.request.user.client
         return super().form_valid(form)
+
+class CategoryListView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+    model = Category
+    template_name = 'creative_space/category_list.html'
+    paginate_by = 12
+    permission_required = 'creative_space.view_category'
+    ordering =  ['name']
+
+    def get_queryset(self):
+        queryset = Category.objects.all()
+        return queryset
+
+class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+    model = Category
+    fields = ['name']
+    permission_required = 'creative_space.add_category'
+    success_url = reverse_lazy('categories')
+
+class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+    model = Category
+    success_url = reverse_lazy('categories')
+    permission_required = 'creative_space.delete_category'
 
 def register(request):
     if request.method == 'POST':

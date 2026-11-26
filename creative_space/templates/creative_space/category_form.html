@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<form action="" method="POST" enctype="multipart/form-data">
+    <legend>Создание категории</legend>
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="Подтвердить" />
+</form>
+<a href="{% if submission %}{{ submission.get_absolute_url }}{% else %}{% url 'my_submissions' %}{% endif %}" class="alternative-link">Вернуться</a>
+
+{% endblock %}

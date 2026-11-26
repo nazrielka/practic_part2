@@ -26,7 +26,7 @@ class Client(models.Model):
             return f'{self.user.username}'
 
 class Category(models.Model):
-    name = models.CharField("Категория", max_length=50, help_text="Что требуется сделать по заявке.")
+    name = models.CharField("Категория", max_length=50, help_text="Категория заявки.")
 
     class Meta:
         ordering = ('name',)

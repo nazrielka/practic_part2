@@ -21,7 +21,8 @@
                             <p>{{submission.category}}</p>
                             <time>{{submission.created_at}}</time>
                         </div>
-                        <p>Описание: {{submission.description}}</p>
+                        <p>Описание заявки: {{submission.description}}</p>
+                        <p>Дизайнер: {{submission.design.designer}}</p>
                     </div>
                 {% endfor %}
 

@@ -840,3 +840,115 @@ nav menu a:hover {
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
 }
+
+/* Страница подтверждения удаления (категории / заявки) */
+
+main > h1 + p {
+    max-width: 430px;
+    margin: 20px auto 0;
+    padding: 15px 18px;
+    background-color: #fff8f8;
+    border-radius: 8px;
+    color: #7a1c1c;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Уменьшаем верхний отступ у формы, если перед ней стоит предупреждение */
+main > p + form:not(#logout-form) {
+    margin-top: 24px;
+}
+
+/* Красная кнопка «Да, удалить» */
+.container form:not(#logout-form) input[type="submit"][value*="удалить"] {
+    margin-top: 0;
+    background-color: #a90202;
+}
+
+.container form:not(#logout-form) input[type="submit"][value*="удалить"]:hover {
+    background-color: #870101;
+    box-shadow: 0 5px 15px rgba(169, 2, 2, 0.25);
+}
+
+/* Страница «Все категории» */
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 28px;
+}
+
+.category {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.category:hover {
+    box-shadow: 0 12px 30px rgba(40, 38, 32, 0.08);
+}
+
+.category h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Кнопка «Удалить» внутри карточки категории */
+.category .btn-delete {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    background-color: #fff8f8;
+    border: 1px solid #f0c9c9;
+    border-radius: 8px;
+    color: #a90202;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.category .btn-delete:hover {
+    background-color: #a90202;
+    border-color: #a90202;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(169, 2, 2, 0.2);
+}
+
+.category .btn-delete:active {
+    transform: scale(0.97);
+}
+
+/* Кнопка «Добавить» под сеткой категорий */
+.categories > .btn-update {
+    grid-column: 1 / -1;
+    display: inline-block;
+    width: fit-content;
+    margin-top: 10px;
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.categories > .btn-update:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    box-shadow: 0 5px 15px rgba(180, 123, 92, 0.25);
+}
+
+.categories > .btn-update:active {
+    transform: scale(0.98);
+}

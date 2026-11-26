@@ -14,5 +14,9 @@ urlpatterns = [
     path('all_submissions/', views.SubmissionListViewAll.as_view(), name='all_submissions'),
     path('design/<int:pk>/create/', views.DesignCreateView.as_view(), name='create_design'),
 
+    path('categories/', views.CategoryListView.as_view(), name='categories'),
+    path('categories/create', views.CategoryCreateView.as_view(), name='create_category'),
+    path('category/<int:pk>/delete', views.CategoryDeleteView.as_view(), name='delete_category'),
+
     path('register/', views.register, name='register'),
 ]

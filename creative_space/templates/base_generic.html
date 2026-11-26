@@ -29,7 +29,7 @@
               {% if user.is_staff %}
               <li class="title-nav">Администратор</li>
               <li><a href="{% url 'all_submissions' %}">Все заявки</a></li>
-              <li><a href="#">Все категории</a></li>
+              <li><a href="{% url 'categories' %}">Все категории</a></li>
               {% endif %}
             {% else %}
               <li><a href="{% url 'login' %}">Войти</a></li>
