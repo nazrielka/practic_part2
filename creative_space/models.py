@@ -76,8 +76,8 @@ class Submission(models.Model):
 
 class Design(models.Model):
     designer = models.ForeignKey(Client, verbose_name="Дизайнер",on_delete=models.SET_NULL, null=True)
-    design_photo = models.ImageField(upload_to='design_photos/%Y/%m', blank=True, null=True, help_text="Фотография готового дизайна.")
-    comment = models.TextField(blank=True, null=True, help_text="Введите комментарий по заявке.")
+    design_photo = models.ImageField("Дизайн", upload_to='design_photos/%Y/%m', blank=True, null=True, help_text="Фотография готового дизайна (заявка получит статус 'Выполненно').")
+    comment = models.TextField("Комментарий", blank=True, null=True, help_text="Введите комментарий по заявке (заявка получит статус 'В работе')")
     submission = models.OneToOneField(Submission, on_delete=models.SET_NULL, null=True, help_text="Заявка, для которой нужен дизайн.")
 
     def __str__(self):

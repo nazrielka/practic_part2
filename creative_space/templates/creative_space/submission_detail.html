@@ -6,10 +6,10 @@
 
     {% if perms.creative_space.change_submission or perms.creative_space.delete_submission %}
     <menu>
-        {% if perms.creative_space.change_submission %}
+        {% if perms.creative_space.change_submission and submission.client.user == user and submission.status == 'n' %}
             <li><a href="#">Обновить заявку</a></li>
         {% endif %}
-        {% if perms.creative_space.delete_submission %}
+        {% if perms.creative_space.delete_submission and user.is_staff or submission.client.user == user and submission.status == 'n'%}
             <li><a href="#">Удалить заявку</a></li>
         {% endif %}
     </menu>
@@ -33,10 +33,12 @@
         {% if submission.status == 'w' %}
             <h3>Комментарий</h3>
             <p>{{ submission.design.comment }}</p>
+            <p>Дизайнер: {{ submission.design.designer }}</p>
         {% endif %}
         {% if submission.status == 'r' %}
             <h3>Готовый дизайн</h3>
             <div class="design-photo"><img src="{{submission.design.design_photo.url}}" alt="Готовая работа"></div>
+            <p>Дизайнер: {{ submission.design.designer }}</p>
         {% endif %}
 
         {% if user.is_staff or submission.client.user == user and submission.status == 'n' %}
@@ -45,7 +47,18 @@
         {% if submission.client.user == user and submission.status == 'n' %}
             <a href="{% url 'update_submission' submission.id %}" class="btn-update">Обновить заявку</a>
         {% endif %}
+        {% if user.is_staff and submission.status == 'n' and submission.client.user != user %}
+          <a href="{% url 'create_design' submission.id %}" class="btn-update">Оставить дизайн</a>
+        {% endif %}
     </section>
-    <a href="{% url 'my_submissions' %}" class="alternative-link">Вернуться к заявкам</a>
+    {% if 'all_submissions' in request.META.HTTP_REFERER %}
+      <a href="{% url 'all_submissions' %}" class="alternative-link">Вернуться к заявкам</a>
+    {% elif 'my_submissions' in request.META.HTTP_REFERER %}
+      <a href="{% url 'my_submissions' %}" class="alternative-link">Вернуться к заявкам</a>
+    {% elif 'profile' in request.META.HTTP_REFERER %}
+      <a href="{% url 'profile' %}" class="alternative-link">Вернуться в профиль</a>
+    {% else %}
+      <a href="{% if user.is_staff %}{% url 'all_submissions' %}{% else %}{% url 'my_submissions' %}{% endif %}" class="alternative-link">Вернуться к заявкам</a>
+    {% endif %}
 
 {% endblock %}

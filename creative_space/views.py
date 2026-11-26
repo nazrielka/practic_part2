@@ -1,15 +1,15 @@
 from django.urls import reverse_lazy
 
-from .forms import ClientCreationForm
-from django.shortcuts import render, redirect
-from creative_space.models import Submission
+from .forms import ClientCreationForm, DesignCreationForm
+from django.shortcuts import render, redirect, get_object_or_404
+from creative_space.models import Submission, Design
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views import generic, View
 
 def index (request):
     num_submissions = Submission.objects.filter(status__exact='w').count()
-    submission_ready_list = Submission.objects.filter(status__exact='r').order_by('-created_at')
+    submission_ready_list = Submission.objects.filter(status__exact='r').order_by('-created_at')[:4]
     return render(request, 'creative_space/index.html', {'num_submissions': num_submissions, 'submission_ready_list': submission_ready_list,} )
 
 class SubmissionListViewMyProfile(LoginRequiredMixin, generic.ListView):
@@ -77,6 +77,17 @@ class SubmissionDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Submission
     success_url = reverse_lazy('my_submissions')
     permission_required = 'creative_space.delete_submission'
+
+class DesignCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+    model = Design
+    form_class = DesignCreationForm
+    permission_required = 'creative_space.add_design'
+    success_url = reverse_lazy('all_submissions')
+
+    def form_valid(self, form):
+        form.instance.submission = get_object_or_404(Submission, pk=self.kwargs['pk'])
+        form.instance.designer = self.request.user.client
+        return super().form_valid(form)
 
 def register(request):
     if request.method == 'POST':

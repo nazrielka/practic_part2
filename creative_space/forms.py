@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Client
+from .models import Client, Design
 from django.core.validators import RegexValidator
 
 cyrillic_validator = RegexValidator(
@@ -41,3 +41,20 @@ class ClientCreationForm(UserCreationForm):
                 }
             )
         return user
+
+class DesignCreationForm(forms.ModelForm):
+    class Meta:
+        model = Design
+        fields = ['design_photo', 'comment']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        design_photo = cleaned_data.get('design_photo')
+        comment = cleaned_data.get('comment')
+
+        if design_photo and comment:
+            raise forms.ValidationError("Заполните только одно поле: либо прикрепите готовый дизайн, либо оставьте комментарий.")
+        if not design_photo and not comment:
+            raise forms.ValidationError("Необходимо заполнить хотя бы одно поле: дизайн или комментарий.")
+
+        return cleaned_data
