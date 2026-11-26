@@ -20,6 +20,23 @@ class SubmissionListViewMyProfile(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return (Submission.objects.filter(client__user=self.request.user)).order_by('-created_at')
 
+class SubmissionListViewAll(LoginRequiredMixin, generic.ListView):
+    model = Submission
+    template_name = 'creative_space/submission_list_all.html'
+    paginate_by = 8
+
+    def get_queryset(self):
+        queryset = Submission.objects.all().order_by('-created_at')
+        status = self.request.GET.get('status')
+        if status:
+            queryset = queryset.filter(status__exact=status)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_status'] = self.request.GET.get('status', '')
+        return context
+
 class SubmissionListViewMy(LoginRequiredMixin, generic.ListView):
     model = Submission
     template_name = 'creative_space/submission_list_my.html'
